@@ -1,0 +1,6 @@
+covdefaults
+coverage-enable-subprocess
+coverage[toml]
+pytest
+pytest-mock
+pytest-randomly

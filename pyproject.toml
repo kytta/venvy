@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "venvy"
+description = "A very opinionated virtualenv wrapper for an even simpler venv management."
+readme = "README.md"
+requires-python = ">=3.7"
+license = "ISC"
+authors = [
+    { name = "Nikita Karamov", email = "me@kytta.dev" },
+]
+maintainers = [
+    { name = "Nikita Karamov", email = "me@kytta.dev" },
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: ISC License (ISCL)",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "virtualenv",
+]
+dynamic = ["version"]
+
+[project.urls]
+Source = "https://codeberg.org/kytta/venvy"
+Issues = "https://codeberg.org/kytta/venvy/issues"
+
+[project.scripts]
+venvy = "venvy.main:main"
+
+
+[tool.autopep8]
+ignore = ["W503"]
+
+[tool.coverage]
+html.show_contexts = true
+html.skip_covered = false
+run.parallel = true
+run.plugins = ["covdefaults"]
+
+[tool.flake8]
+unused-arguments-ignore-abstract-functions = true
+noqa-require-code = true
+dictionaries = ["en_US", "python", "technical"]
+ignore = [
+  "E203", #  whitespace before ':'
+  "W503", # line break before binary operator
+]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+addopts = "--tb=short --showlocals"
+env = ["PYTHONWARNINGS=all", "PYTHONIOENCODING=utf-8"]
+
+[tool.setuptools_scm]
