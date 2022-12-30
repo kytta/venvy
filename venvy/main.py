@@ -15,7 +15,7 @@ def _get_parser() -> argparse.ArgumentParser:
         "query",
         type=str,
         nargs="*",
-        default=".venv",
+        default=[".venv"],
         metavar="QUERY",
         help="Magic query argument. Allows you to specify the name, the "
              "Python distribution or version, or everything at once.",
