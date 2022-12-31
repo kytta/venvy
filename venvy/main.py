@@ -41,7 +41,3 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(args)
 
     return 1
-
-
-if __name__ == "__main_":
-    raise SystemExit(main())
