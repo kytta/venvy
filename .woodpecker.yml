@@ -27,7 +27,7 @@ pipeline:
       branch: main
 
     commands:
-      - python -m pip install -r requirements.txt
+      - python -m pip install tox
       - tox run -s
 
 matrix:
