@@ -43,10 +43,9 @@ def get_activator_map() -> dict[str, str]:
     entry_points = PluginLoader.entry_points_for("virtualenv.activate")
     activators = {key: key for key in entry_points.keys()}
 
-    for activator, aliases in ACTIVATOR_ALIASES.items():
-        if activator in activators:
-            for alias in aliases:
-                activators[alias] = activator
+    for activator in entry_points.keys():
+        for alias in ACTIVATOR_ALIASES.get(activator, []):
+            activators[alias] = activator
 
     return activators
 
