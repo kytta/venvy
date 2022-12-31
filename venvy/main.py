@@ -40,4 +40,4 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _get_parser().parse_args(argv)
     print(args)
 
-    return 1
+    return 0
