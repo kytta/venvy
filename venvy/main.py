@@ -4,9 +4,9 @@ import argparse
 import sys
 from typing import Sequence
 
-if sys.version_info < (3, 8):
+if sys.version_info < (3, 8):  # pragma: <3.8 cover
     from importlib_metadata import version
-else:
+else:  # pragma: >=3.8 cover
     from importlib.metadata import version
 
 
@@ -40,4 +40,4 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _get_parser().parse_args(argv)
     print(args)
 
-    return 1
+    return 0
