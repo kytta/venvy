@@ -7,8 +7,8 @@ from typing import Sequence
 
 def _get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="A very opinionated virtualenv wrapper for an even simpler"
-                    "venv management.",
+        description="A very opinionated virtualenv wrapper for an even "
+                    "simpler venv management.",
     )
 
     parser.add_argument(
