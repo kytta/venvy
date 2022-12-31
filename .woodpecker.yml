@@ -13,7 +13,7 @@ pipeline:
       - |
         if [[ "$CI_BUILD_EVENT" == "pull_request" ]]; then
           git fetch origin $CI_COMMIT_BRANCH
-          pre-commit run --from-ref origin/$CI_COMMIT_BRANCH --to-ref CI_COMMIT_SHA
+          pre-commit run --from-ref origin/$CI_COMMIT_BRANCH --to-ref $CI_COMMIT_SHA
         else
           pre-commit run --all-files
         fi
