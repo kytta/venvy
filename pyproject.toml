@@ -33,6 +33,7 @@ classifiers = [
 ]
 dependencies = [
     "virtualenv",
+    "importlib_metadata;python_version<'3.8'"
 ]
 dynamic = ["version"]
 
