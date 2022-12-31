@@ -7,6 +7,8 @@ import sys
 from typing import NamedTuple
 from typing import Sequence
 
+from virtualenv.run.plugin.base import PluginLoader
+
 if sys.version_info < (3, 8):  # pragma: <3.8 cover
     from importlib_metadata import version
 else:  # pragma: >=3.8 cover
@@ -26,16 +28,34 @@ PY_TAG_RE = re.compile(
     r"(?P<version>[0-9.]+)?"
     r"(?:-(?P<arch>32|64))?$",
 )
-SHELL_NAME_RE = re.compile(
-    r"^(a|ba|c|da|fi|z)sh|(c|nu|power)shell|ps1|python$",
-    flags=re.I,
-)
+
+ACTIVATOR_ALIASES = {
+    "bash": ["ash", "dash", "ksh", "sh", "shell", "zsh"],
+    "batch": ["bat", "cmd"],
+    "cshell": ["csh", "tcsh"],
+    "nushell": ["nu"],
+    "powershell": ["ps1"],
+    "python": ["py"],
+}
+
+
+def get_activator_map() -> dict[str, str]:
+    entry_points = PluginLoader.entry_points_for("virtualenv.activate")
+    activators = {key: key for key in entry_points.keys()}
+
+    for activator, aliases in ACTIVATOR_ALIASES.items():
+        if activator in activators:
+            for alias in aliases:
+                activators[alias] = activator
+
+    return activators
 
 
 def parse_query(query: list[str]) -> VirtualEnvParams:
     python: str | None = None
     dest: str = ".venv"
     activators: list[str] = []
+    activator_map = get_activator_map()
 
     for part in query:
         if not python:
@@ -44,22 +64,8 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
                 python = version_match.group()
                 continue
 
-        shell_match = SHELL_NAME_RE.match(part)
-        if shell_match:
-            activator = None
-            shell = shell_match.group()
-            if shell in ["ash", "bash", "dash", "zsh"]:
-                activator = "bash"  # POSIX
-            elif shell in ["csh", "cshell"]:
-                activator = "cshell"  # CShell
-            elif shell in ["powershell", "ps1"]:
-                activator = "powershell"  # PowerShell
-            elif shell in ["fish", "nushell", "python"]:
-                activator = shell
-            else:
-                continue
-
-            activators.append(activator)
+        if part in activator_map:
+            activators.append(activator_map[part])
             continue
 
         if os.path.exists(part):
