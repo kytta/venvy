@@ -72,6 +72,5 @@ warn_unused_ignores = true
 
 [tool.pytest.ini_options]
 addopts = "--tb=short --showlocals"
-env = ["PYTHONWARNINGS=all", "PYTHONIOENCODING=utf-8"]
 
 [tool.setuptools_scm]
