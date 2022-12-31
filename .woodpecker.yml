@@ -8,6 +8,7 @@ pipeline:
       matrix:
         PYTHON_VERSION: "3.11"
     commands:
+      - apk --no-cache add git
       - python -m pip install pre-commit
       - |
         if [[ "$CI_BUILD_EVENT" == "pull_request" ]]; then
@@ -27,6 +28,7 @@ pipeline:
       branch: main
 
     commands:
+      - apk --no-cache add git
       - python -m pip install tox
       - tox run -s
 
