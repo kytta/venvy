@@ -14,7 +14,7 @@ else:  # pragma: >=3.8 cover
 
 
 class VirtualEnvParams(NamedTuple):
-    python: str                # Python definition
+    python: str | None         # Python definition
     dest: str                  # folder name of the virtualenv
     activators: Sequence[str]  # list of activators to enable
 
@@ -33,7 +33,7 @@ SHELL_NAME_RE = re.compile(
 
 
 def parse_query(query: list[str]) -> VirtualEnvParams:
-    python: str = ""
+    python: str | None = None
     dest: str = ".venv"
     activators: list[str] = []
 
