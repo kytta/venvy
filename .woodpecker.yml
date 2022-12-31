@@ -1,0 +1,39 @@
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+
+pipeline:
+  pre-commit:
+    image: python:alpine
+    when:
+      event: pull_request
+      branch: main
+    commands:
+      - python -m pip install pre-commit
+      - |
+        if [[ "$CI_BUILD_EVENT" == "pull_request" ]]; then
+          git fetch origin $CI_COMMIT_BRANCH
+          pre-commit run --from-ref origin/$CI_COMMIT_BRANCH --to-ref CI_COMMIT_SHA
+        else
+          pre-commit run --all-files
+        fi
+
+  test:
+    image: python:${PYTHON_VERSION}-alpine
+    when:
+      event:
+        - pull_request
+        - push
+      branch: main
+
+    commands:
+      - python -m pip install -r requirements.txt
+      - tox run -s
+
+matrix:
+  PYTHON_VERSION:
+    - 3.7
+    - 3.9
+    - 3.8
+    - 3.10
+    - 3.11
