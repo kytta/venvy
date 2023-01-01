@@ -8,6 +8,7 @@ import sys
 from typing import NamedTuple
 from typing import Sequence
 
+from virtualenv import cli_run
 from virtualenv.run.plugin.base import PluginLoader
 
 if sys.version_info < (3, 8):  # pragma: <3.8 cover
@@ -84,7 +85,11 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
         if current_shell in activator_map:
             activators.add(activator_map[current_shell])
 
-    return VirtualEnvParams(python, dest, activators)
+    return VirtualEnvParams(
+        python=python,
+        dest=dest,
+        activators=activators,
+    )
 
 
 def _get_parser() -> argparse.ArgumentParser:
@@ -113,14 +118,19 @@ def _get_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
-
     args = _get_parser().parse_args(argv)
-    print(args)  # noqa: T201
-
     params = parse_query(args.query)
 
-    from pprint import pprint
-    pprint(params)  # noqa: T203
+    virtualenv_args = [
+        "--download",
+    ]
+    if params.python:
+        virtualenv_args.extend(["--python", params.python])
+    if params.activators:
+        virtualenv_args.extend(["--activators", ",".join(params.activators)])
+    virtualenv_args.append(params.dest)
+
+    cli_run(virtualenv_args)
 
     return 0
 
