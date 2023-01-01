@@ -69,7 +69,7 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
             activators.add(activator_map[part])
             continue
 
-        if os.path.exists(part) and os.path.isfile(part):
+        if os.path.isfile(part) and os.access(part, os.X_OK):
             # probably a python executable?
             python = part
             continue
