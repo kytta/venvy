@@ -4,7 +4,7 @@ import runpy
 
 import pytest
 
-from venvy.main import main
+from venvy import main
 
 
 def test_dunder_main() -> None:
