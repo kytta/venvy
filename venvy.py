@@ -18,7 +18,7 @@ else:  # pragma: >=3.8 cover
 class VirtualEnvParams(NamedTuple):
     python: str | None         # Python definition
     dest: str                  # folder name of the virtualenv
-    activators: Sequence[str]  # list of activators to enable
+    activators: set[str]  # list of activators to enable
 
 
 # Partly taken from virtualenv:
@@ -53,7 +53,7 @@ def get_activator_map() -> dict[str, str]:
 def parse_query(query: list[str]) -> VirtualEnvParams:
     python: str | None = None
     dest: str = ".venv"
-    activators: list[str] = []
+    activators: set[str] = set()
     activator_map = get_activator_map()
 
     for part in query:
@@ -64,7 +64,7 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
                 continue
 
         if part in activator_map:
-            activators.append(activator_map[part])
+            activators.add(activator_map[part])
             continue
 
         if os.path.exists(part) and os.path.isfile(part):
