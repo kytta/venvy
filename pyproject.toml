@@ -48,11 +48,8 @@ venvy = "venvy.main:main"
 [tool.autopep8]
 ignore = ["W503"]
 
-[tool.coverage]
-html.show_contexts = true
-html.skip_covered = false
-run.parallel = true
-run.plugins = ["covdefaults"]
+[tool.coverage.run]
+plugins = ["covdefaults"]
 
 [tool.flake8]
 unused-arguments-ignore-abstract-functions = true
