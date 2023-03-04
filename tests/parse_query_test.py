@@ -20,8 +20,8 @@ TESTS_DIR = os.path.dirname(__file__)
         (["bash", "3.7"], ("3.7", ".venv", ["bash"])),
         (["pypy", "myvenv"], ("pypy", "myvenv", [])),
         (
-            [f"{TESTS_DIR}/resources/executable"],
-            (f"{TESTS_DIR}/resources/executable", ".venv", []),
+            [os.path.join(TESTS_DIR, "resources", "executable")],
+            (os.path.join(TESTS_DIR, "resources", "executable"), ".venv", []),
         ),
     ],
 )
