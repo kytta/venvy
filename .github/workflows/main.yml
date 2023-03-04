@@ -43,7 +43,6 @@ jobs:
           - "3.9"
           - "3.10"
           - "3.11"
-          - "pypy3.9"
         runs-on:
           - "ubuntu"
           - "macos"
