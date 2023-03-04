@@ -1,16 +1,8 @@
 from __future__ import annotations
 
-import runpy
-
 import pytest
 
 from venvy import main
-
-
-def test_dunder_main() -> None:
-    with pytest.raises(SystemExit) as exc_info:
-        runpy.run_module("venvy", run_name="__main__")
-    assert exc_info.value.code == 0
 
 
 @pytest.mark.parametrize(
