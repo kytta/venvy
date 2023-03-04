@@ -29,12 +29,13 @@ PY_TAG_RE = re.compile(
     r"(?:-(?P<arch>32|64))?$",
 )
 
-ACTIVATOR_ALIASES = {
+ACTIVATOR_ALIASES: dict[str, list[str]] = {
     "bash": ["ash", "dash", "ksh", "sh", "shell", "zsh"],
     "batch": ["bat", "cmd"],
     "cshell": ["csh", "tcsh"],
+    "fish": [],
     "nushell": ["nu"],
-    "powershell": ["ps1"],
+    "powershell": ["ps1", "pwsh"],
     "python": ["py"],
 }
 
