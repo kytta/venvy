@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import os.path
 import re
-import stat
 import sys
 from typing import NamedTuple
 from typing import Sequence
@@ -68,8 +67,7 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
             activators.append(activator_map[part])
             continue
 
-        if os.path.exists(part) and os.path.isfile(part) \
-                and stat.S_IXUSR & os.stat(part)[stat.ST_MODE]:
+        if os.path.exists(part) and os.path.isfile(part):
             # probably a python executable?
             python = part
             continue
