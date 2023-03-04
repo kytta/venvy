@@ -14,6 +14,10 @@ only_on_win32 = pytest.mark.skipif(
     sys.platform != "win32",
     reason="Only runs on Windows",
 )
+only_on_nix = pytest.mark.skipif(
+    sys.platform == "win32",
+    reason="Only runs on non-Windows OS",
+)
 
 # TODO: update derived activators when we detect activators
 
@@ -24,10 +28,6 @@ only_on_win32 = pytest.mark.skipif(
         (["37"], ("37", ".venv", [])),
         (["bash", "3.7"], ("3.7", ".venv", ["bash"])),
         (["pypy", "myvenv"], ("pypy", "myvenv", [])),
-        (
-            [os.path.join(TESTS_DIR, "resources", "executable")],
-            (os.path.join(TESTS_DIR, "resources", "executable"), ".venv", []),
-        ),
     ],
 )
 def test_parse_query(
@@ -35,6 +35,12 @@ def test_parse_query(
     expected: tuple[str | None, str, Sequence[str]],
 ) -> None:
     assert parse_query(query) == VirtualEnvParams(*expected)
+
+
+@only_on_nix  # pragma: win32 no cover
+def test_parse_query_on_nix() -> None:
+    exe_path = os.path.join(TESTS_DIR, "resources", "executable")
+    assert parse_query([exe_path]) == (exe_path, ".venv", [])
 
 
 @only_on_win32  # pragma: win32 cover
