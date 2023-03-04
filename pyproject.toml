@@ -7,7 +7,7 @@ name = "venvy"
 description = "A very opinionated virtualenv wrapper for an even simpler venv management."
 readme = "README.md"
 requires-python = ">=3.7"
-license.file = "LICENSE"
+license = {text = "ISC License"}
 authors = [
     { name = "Nikita Karamov", email = "me@kytta.dev" },
 ]
