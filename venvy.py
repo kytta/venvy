@@ -81,9 +81,8 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
     import shellingham
     with contextlib.suppress(shellingham.ShellDetectionFailure):
         current_shell = shellingham.detect_shell()[0]
-
-    if current_shell in activator_map:
-        activators.add(activator_map[current_shell])
+        if current_shell in activator_map:
+            activators.add(activator_map[current_shell])
 
     return VirtualEnvParams(python, dest, activators)
 
