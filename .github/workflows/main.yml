@@ -50,7 +50,8 @@ jobs:
           - "windows"
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         id: python-install
         uses: actions/setup-python@v4
@@ -61,7 +62,7 @@ jobs:
         shell: bash
         run: |
           echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-      - name: Cache pip
+      - name: Cache
         uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
