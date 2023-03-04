@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import os.path
 import re
 import sys
@@ -18,7 +19,7 @@ else:  # pragma: >=3.8 cover
 class VirtualEnvParams(NamedTuple):
     python: str | None         # Python definition
     dest: str                  # folder name of the virtualenv
-    activators: Sequence[str]  # list of activators to enable
+    activators: set[str]  # list of activators to enable
 
 
 # Partly taken from virtualenv:
@@ -29,12 +30,13 @@ PY_TAG_RE = re.compile(
     r"(?:-(?P<arch>32|64))?$",
 )
 
-ACTIVATOR_ALIASES = {
+ACTIVATOR_ALIASES: dict[str, list[str]] = {
     "bash": ["ash", "dash", "ksh", "sh", "shell", "zsh"],
     "batch": ["bat", "cmd"],
     "cshell": ["csh", "tcsh"],
+    "fish": [],
     "nushell": ["nu"],
-    "powershell": ["ps1"],
+    "powershell": ["ps1", "pwsh"],
     "python": ["py"],
 }
 
@@ -53,7 +55,7 @@ def get_activator_map() -> dict[str, str]:
 def parse_query(query: list[str]) -> VirtualEnvParams:
     python: str | None = None
     dest: str = ".venv"
-    activators: list[str] = []
+    activators: set[str] = set()
     activator_map = get_activator_map()
 
     for part in query:
@@ -64,7 +66,7 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
                 continue
 
         if part in activator_map:
-            activators.append(activator_map[part])
+            activators.add(activator_map[part])
             continue
 
         if os.path.exists(part) and os.path.isfile(part):
@@ -75,6 +77,12 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
         # probably a venv name
         dest = part
         continue
+
+    import shellingham
+    with contextlib.suppress(shellingham.ShellDetectionFailure):
+        current_shell = shellingham.detect_shell()[0]
+        if current_shell in activator_map:
+            activators.add(activator_map[current_shell])
 
     return VirtualEnvParams(python, dest, activators)
 

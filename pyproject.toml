@@ -31,7 +31,8 @@ classifiers = [
 ]
 dependencies = [
     "virtualenv",
-    "importlib_metadata;python_version<'3.8'"
+    "importlib_metadata;python_version<'3.8'",
+    "shellingham",
 ]
 dynamic = ["version"]
 
@@ -56,6 +57,13 @@ disallow_incomplete_defs = true
 disallow_untyped_defs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+ignore_missing_imports = true
+check_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
 
 [tool.pytest.ini_options]
 addopts = "--tb=short --showlocals"
