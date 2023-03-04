@@ -41,9 +41,9 @@ ACTIVATOR_ALIASES = {
 
 def get_activator_map() -> dict[str, str]:
     entry_points = PluginLoader.entry_points_for("virtualenv.activate")
-    activators = {key: key for key in entry_points.keys()}
+    activators = {key: key for key in entry_points}
 
-    for activator in entry_points.keys():
+    for activator in entry_points:
         for alias in ACTIVATOR_ALIASES.get(activator, []):
             activators[alias] = activator
 
@@ -71,10 +71,10 @@ def parse_query(query: list[str]) -> VirtualEnvParams:
             # probably a python executable?
             python = part
             continue
-        else:
-            # probably a venv name
-            dest = part
-            continue
+
+        # probably a venv name
+        dest = part
+        continue
 
     return VirtualEnvParams(python, dest, activators)
 
@@ -107,12 +107,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
 
     args = _get_parser().parse_args(argv)
-    print(args)
+    print(args)  # noqa: T201
 
     params = parse_query(args.query)
 
     from pprint import pprint
-    pprint(params)
+    pprint(params)  # noqa: T203
 
     return 0
 
