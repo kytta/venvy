@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from typing import Sequence
 
 import pytest
@@ -30,3 +31,9 @@ def test_parse_query(
     expected: tuple[str | None, str, Sequence[str]],
 ) -> None:
     assert parse_query(query) == VirtualEnvParams(*expected)
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Only runs on Windows")
+def test_parse_query_on_windows() -> None:
+    exe_path = os.path.join(TESTS_DIR, "resources", "executable.bat")
+    assert parse_query([exe_path]) == (exe_path, ".venv", [])
