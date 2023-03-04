@@ -50,14 +50,6 @@ ignore = ["W503"]
 [tool.coverage.run]
 plugins = ["covdefaults"]
 
-[tool.flake8]
-unused-arguments-ignore-abstract-functions = true
-noqa-require-code = true
-ignore = [
-  "E203", #  whitespace before ':'
-  "W503", # line break before binary operator
-]
-
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
@@ -68,5 +60,48 @@ warn_unused_ignores = true
 
 [tool.pytest.ini_options]
 addopts = "--tb=short --showlocals"
+
+[tool.ruff]
+line-length = 79
+target-version = "py38"
+
+select = [
+    "F",       # pyflakes
+    "E", "W",  # pycodestyle
+    "C90",     # mccabe
+    "N",       # pep8-naming
+    "YTT",     # flake8-2020
+    "S",       # bandit
+    "BLE",     # flake8-blind-except
+    "FBT",     # flake8-boolean-trap
+    "B",       # flake8-bugbear
+    "A",       # flake8-builtins
+    "C4",      # flake8-comprehensions
+    "DTZ",     # flake8-datetimez
+    "EM",      # flake8-errmsg
+    "ISC",     # flake8-implicit-str-concat
+    "ICN",     # flake8-import-conventions
+    "G",       # flake8-logging-format
+    "INP",     # flake8-no-pep420
+    "PIE",     # flake8-pie
+    "T20",     # flake8-print
+    "Q",       # flake8-quotes
+    "RSE",     # flake8-raise
+    "RET",     # flake8-return
+    "SLF",     # flake8-self
+    "SIM",     # flake8-simplify
+    "ARG",     # flake8-unused-arguments
+    "ERA",     # eradicate
+    "PL",      # pylint
+    "TRY",     # tryceratops
+    "RUF",     # ruff
+]
+
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"
 
 [tool.setuptools_scm]
