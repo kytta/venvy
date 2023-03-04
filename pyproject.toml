@@ -7,7 +7,7 @@ name = "venvy"
 description = "A very opinionated virtualenv wrapper for an even simpler venv management."
 readme = "README.md"
 requires-python = ">=3.7"
-license.file = "LICENSE"
+license = {text = "ISC License"}
 authors = [
     { name = "Nikita Karamov", email = "me@kytta.dev" },
 ]
@@ -27,7 +27,6 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
-    "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
@@ -38,8 +37,8 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Source = "https://codeberg.org/kytta/venvy"
-Issues = "https://codeberg.org/kytta/venvy/issues"
+Source = "https://github.com/kytta/venvy"
+Issues = "https://github.com/kytta/venvy/issues"
 
 [project.scripts]
 venvy = "venvy:main"
