@@ -42,7 +42,7 @@ Source = "https://codeberg.org/kytta/venvy"
 Issues = "https://codeberg.org/kytta/venvy/issues"
 
 [project.scripts]
-venvy = "venvy.main:main"
+venvy = "venvy:main"
 
 
 [tool.autopep8]

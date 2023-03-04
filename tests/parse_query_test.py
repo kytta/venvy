@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from venvy.main import parse_query
-from venvy.main import VirtualEnvParams
+from venvy import parse_query
+from venvy import VirtualEnvParams
 
 
 # TODO: update derived activators when we detect activators
