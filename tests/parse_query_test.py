@@ -10,6 +10,10 @@ from venvy import parse_query
 from venvy import VirtualEnvParams
 
 TESTS_DIR = os.path.dirname(__file__)
+only_on_win32 = pytest.mark.skipif(
+    sys.platform != "win32",
+    reason="Only runs on Windows",
+)
 
 # TODO: update derived activators when we detect activators
 
@@ -33,7 +37,7 @@ def test_parse_query(
     assert parse_query(query) == VirtualEnvParams(*expected)
 
 
-@pytest.mark.skipif(sys.platform != "win32", reason="Only runs on Windows")
+@only_on_win32  # pragma: win32 cover
 def test_parse_query_on_windows() -> None:
     exe_path = os.path.join(TESTS_DIR, "resources", "executable.bat")
     assert parse_query([exe_path]) == (exe_path, ".venv", [])
