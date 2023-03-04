@@ -1,4 +1,3 @@
 covdefaults
-coverage-enable-subprocess
 coverage[toml]
 pytest
