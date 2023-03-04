@@ -77,13 +77,13 @@ jobs:
         run: tox --notest -p auto --parallel-live
       - name: Test
         run: tox
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     files: ./coverage.xml
-      #     flags: >-
-      #       OS-${{ matrix.runs-on }},
-      #       Py-${{ matrix.python-version }}
-      #     name: >-
-      #       OS-${{ matrix.runs-on }},
-      #       Py-${{ matrix.python-version }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: >-
+            OS-${{ matrix.runs-on }},
+            Py-${{ matrix.python-version }}
+          name: >-
+            OS-${{ matrix.runs-on }},
+            Py-${{ matrix.python-version }}
