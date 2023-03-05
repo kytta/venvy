@@ -166,7 +166,7 @@ Licensed under the [ISC License].
 
 ---
 
-This project is hosted on Codeberg: <https://codeberg.org/kytta/venvy.git>
+This project is hosted on Codeberg: <https://github.com/kytta/venvy.git>
 
 [isc license]: https://spdx.org/licenses/ISC.html
 [nikita karamov]: https://www.kytta.dev/
