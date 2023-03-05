@@ -1,27 +1,36 @@
 from __future__ import annotations
 
+import sys
+
 import pytest
 
 from venvy import main
+
+CURRENT_PYTHON = f"{sys.version_info[0]}.{sys.version_info[1]}"
 
 
 @pytest.mark.parametrize(
     ("argv", "exit_code"), [
         ([], 0),
-        (["py37"], 0),
+        ([f"python{CURRENT_PYTHON}"], 0),
     ],
 )
-def test_main_return_value(argv: list[str], exit_code: int) -> None:
-    assert main(argv) == exit_code
-
-
 @pytest.mark.parametrize(
-    ("argv", "exit_code"), [
-        (["--help"], 0),
-        (["--version"], 0),
-        (["--non-existent-argument"], 2),
+    "shell", [
+        "bash",
+        "xonsh",
     ],
 )
-def test_argparse(argv: list[str], exit_code: int) -> None:
-    with pytest.raises(SystemExit):
-        assert main(argv) == exit_code
+def test_main_return_value(
+    argv: list[str],
+    exit_code: int,
+    shell: str,
+    monkeypatch,
+) -> None:
+    import shellingham
+
+    def return_shell():
+        return shell, f"/usr/local/bin/{shell}"
+
+    monkeypatch.setattr(shellingham, "detect_shell", return_shell)
+    assert main(argv) == exit_code

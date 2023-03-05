@@ -46,7 +46,7 @@ def test_parse_query(
     import shellingham
 
     def return_bash():
-        return ("bash", "/bin/bash")
+        return "bash", "/bin/bash"
 
     monkeypatch.setattr(shellingham, "detect_shell", return_bash)
     assert parse_query(query) == VirtualEnvParams(*expected)
@@ -56,7 +56,7 @@ def test_parse_query_in_unsupported_shell(monkeypatch) -> None:
     import shellingham
 
     def return_xonsh():
-        return ("xonsh", "/usr/local/bin/xonsh")
+        return "xonsh", "/usr/local/bin/xonsh"
 
     monkeypatch.setattr(shellingham, "detect_shell", return_xonsh)
     assert parse_query([]) == VirtualEnvParams(None, ".venv", set())
