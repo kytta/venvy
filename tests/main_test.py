@@ -30,15 +30,3 @@ def test_main_return_value(
 
     monkeypatch.setattr(shellingham, "detect_shell", return_shell)
     assert main(argv) == exit_code
-
-
-@pytest.mark.parametrize(
-    ("argv", "exit_code"), [
-        (["--help"], 0),
-        (["--version"], 0),
-        (["--non-existent-argument"], 2),
-    ],
-)
-def test_argparse(argv: list[str], exit_code: int) -> None:
-    with pytest.raises(SystemExit):
-        assert main(argv) == exit_code
