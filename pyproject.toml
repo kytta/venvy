@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "venvy"
 description = "A very opinionated virtualenv wrapper for an even simpler venv management."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = {text = "ISC License"}
 authors = [
     { name = "Nikita Karamov", email = "me@kytta.dev" },
@@ -31,7 +31,6 @@ classifiers = [
 ]
 dependencies = [
     "virtualenv",
-    "importlib_metadata;python_version<'3.8'",
     "shellingham",
 ]
 dynamic = ["version"]
@@ -70,7 +69,6 @@ addopts = "--tb=short --showlocals"
 
 [tool.ruff]
 line-length = 79
-target-version = "py38"
 
 select = [
     "F",       # pyflakes

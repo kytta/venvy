@@ -5,16 +5,12 @@ import contextlib
 import os.path
 import re
 import sys
+from importlib.metadata import version
 from typing import NamedTuple
 from typing import Sequence
 
 from virtualenv import cli_run
 from virtualenv.run.plugin.base import PluginLoader
-
-if sys.version_info < (3, 8):  # pragma: <3.8 cover
-    from importlib_metadata import version
-else:  # pragma: >=3.8 cover
-    from importlib.metadata import version
 
 
 class VirtualEnvParams(NamedTuple):
