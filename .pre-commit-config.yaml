@@ -29,7 +29,7 @@ repos:
       - id: reorder-python-imports
         args: [--py38-plus, --add-import, "from __future__ import annotations"]
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v3.0.1
+    rev: v3.1.0
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/asottile/pyupgrade
@@ -37,15 +37,15 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py38-plus]
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v2.0.2
+  - repo: https://github.com/hhatto/autopep8
+    rev: v2.0.4
     hooks:
       - id: autopep8
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.0.282"
+    rev: "v0.0.287"
     hooks:
       - id: ruff
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.4.1
+    rev: v1.5.1
     hooks:
       - id: mypy
