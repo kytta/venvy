@@ -74,3 +74,44 @@ jobs:
           path: .coverage.*
           include-hidden-files: true
           if-no-files-found: ignore
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - uses: hynek/setup-cached-uv@v2
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-data-*
+          merge-multiple: true
+
+      - name: Combine and check coverage
+        run: |
+          uv tool install --with covdefaults coverage
+
+          coverage combine
+          coverage html --skip-covered --skip-empty
+
+          # Report and write to summary.
+          coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
+
+          # Report again and fail if under 100%.
+          coverage report --fail-under=100
+
+      - name: Upload HTML report if check failed.
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report
+          path: htmlcov
+        if: ${{ failure() }}
