@@ -47,6 +47,7 @@ venvy = "venvy:main"
 ignore = ["W503"]
 
 [tool.coverage.run]
+parallel = true
 plugins = ["covdefaults"]
 
 [tool.mypy]
