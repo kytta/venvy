@@ -1,3 +1,11 @@
+# venvy is now on Codeberg
+
+I've had enough with GitHub. This repository is now on Codeberg: https://codeberg.org/kytta/venvy.git
+
+The repository on GitHub will stay archived (read-only) for a few months before I delete it for good.
+
+<details><summary>Previous README</summary>
+
 # venvy
 
 > A very opinionated virtualenv wrapper for an even simpler venv management.
@@ -172,3 +180,5 @@ This project is hosted on GitHub: <https://github.com/kytta/venvy.git>
 [nikita karamov]: https://www.kytta.dev/
 [pipx]: https://pypa.github.io/pipx/
 [pyenv]: https://github.com/pyenv/pyenv
+
+</details>
